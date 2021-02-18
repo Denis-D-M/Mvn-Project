@@ -10,20 +10,22 @@ import static org.junit.Assert.*;
 
 public class MyBLogicTest {
 
+//  Для ожидания исключения  @Test(expected = ArithmeticException.class)
     @Test
     public void editItem() throws SQLException {
         System.out.println("editItem");
         int id = 5;
         String newName = "ewf";
         DBaseInterface db = Mockito.mock(DBaseInterface.class);
-        Mockito.stub(db.find(Mockito.any(Integer.class))).toReturn("Searched");
+//      Deprecated!!!  Mockito.stub(db.find(Mockito.any(Integer.class))).toReturn("Searched");
         Mockito.when(db.find(Mockito.any(Integer.class))).thenReturn("Searched");
-//        Mockito.when(db.find(Mockito.eq(5))).thenReturn("Searched");
 
         MyBLogic myBLogic = new MyBLogic();
         int expResult = 1;
         int result = myBLogic.editItem(id, newName, db);
-        assertEquals(expResult, result);
+
+        Mockito.verify(db, Mockito.times(5)).find(Mockito.any(Integer.class));
+
     }
 
 }

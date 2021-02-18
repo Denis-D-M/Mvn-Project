@@ -6,6 +6,10 @@ public class Calculator {
     }
 
     public int div(int a, int b) {
-        return a / b;
+        try {
+            return a/b;
+        } catch (ArithmeticException e){
+            throw new ArithmeticException();
+        }
     }
 }
